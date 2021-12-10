@@ -50,8 +50,8 @@ func Login(c *gin.Context) {
 		tool.RespErrorWithDate(c, "用户名或密码错误")
 		return
 	}
+	c.SetCookie("Login_Cookie", username, 3600, "/", "", false, true)
 		tool.RespSuccessful(c)
-		c.SetCookie("Login_Cookie", username, 3600, "/", "", false, true)
 }
 func ChangePassword(c *gin.Context){
 	username := c.PostForm("username")

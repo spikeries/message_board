@@ -12,7 +12,7 @@ func Register(user model.User) error {
 	err := dao.InsertUser(user)
 	return err
 }
-func CheckPassword(username, password string) (bool, error) {
+func CheckPassword(username, password string) (bool, error) {//密码是否正确
 	user, err := dao.SelectUserByUsername(username)
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -28,7 +28,7 @@ func CheckPassword(username, password string) (bool, error) {
 
 	return true, nil
 }
-func RepeatedUsername(username string)(bool,error){
+func RepeatedUsername(username string)(bool,error){//查询用户名是否存在
 	_, err := dao.SelectUserByUsername(username)
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -40,8 +40,8 @@ func RepeatedUsername(username string)(bool,error){
 
 	return true, nil
 }
-func LoginCheck(ctx *gin.Context)bool {
-	_, err := ctx.Cookie("Login_cookie")
+func LoginCheck(ctx *gin.Context)bool {//查询是否已经登录
+	_, err := ctx.Cookie("Login_Cookie")
 	if err != nil {
 		return false
 	}

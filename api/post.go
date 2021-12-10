@@ -6,6 +6,7 @@ import (
 	"message_board/model"
 	"message_board/service"
 	"message_board/tool"
+	"strconv"
 	"time"
 )
 
@@ -51,3 +52,27 @@ func addPost(c *gin.Context) {
 
 	tool.RespSuccessful(c)
 		}
+func showPost(c *gin.Context){
+	idString:=c.PostForm("id")
+	id,err := strconv.Atoi(idString)
+	if err!=nil{
+		tool.RespErrorWithDate(c,"输入的id非法")
+		return
+	}
+	var postdetail model.PostDetail
+	post,err:=service.GetPostById(id)
+	if err!=nil{
+		tool.RespInternalError(c)
+		fmt.Println(err)
+		return
+	}
+	comments,err:=service.GetPostComments(post.Id)
+	if err!= nil{
+		tool.RespInternalError(c)
+		fmt.Println(err)
+		return
+	}
+	postdetail.Post=post
+	postdetail.Comments=comments
+	tool.RespSuccessfulWithDate(c,postdetail)
+}

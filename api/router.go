@@ -12,8 +12,9 @@ c.POST("/passwordChanging",ChangePassword)
 	postGroup := c.Group("/post")
 	{
 		postGroup.POST("/", addPost)
-
 		postGroup.GET("/", briefPosts)
+		postGroup.POST("/comments",addComment)
+		postGroup.GET("/postdetail",showPost)
 	}
 
 

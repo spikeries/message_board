@@ -2,6 +2,7 @@ package dao
 
 import (
 	"message_board/model"
+	"time"
 )
 
 func InsertPost(post model.Post) error {
@@ -43,4 +44,15 @@ func SelectPosts() ([]model.Post, error) {
 	}
 
 	return posts, nil
+}
+func UpdatePostById(id int,txt string)error{
+
+	_, err := dB.Exec("UPDATE post SET txt=?,updatetime=? where id = ?",txt,time.Now(),id)
+
+return err
+}
+func DeletePostById(id int)error{
+	txt := ""
+	_, err := dB.Exec("UPDATE post SET txt=?,updatetime=? where id = ?",txt,time.Now(),id)
+	return err
 }

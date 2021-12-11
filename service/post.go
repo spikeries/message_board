@@ -17,3 +17,11 @@ func GetPosts() ([]model.Post, error) {
 func GetPostById(postId int) (model.Post, error) {
 	return dao.SelectPostById(postId)
 }
+func UpdatePost(id int,txt string)error{
+	err:=dao.UpdatePostById(id,txt)
+return err
+}
+func DeletePost(id int)error{
+	err:=dao.DeletePostById(id)
+	return err
+}

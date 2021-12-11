@@ -27,9 +27,13 @@ func addComment(c *gin.Context) {
 		Username:    username,
 		CommentTime: time.Now(),
 	}
-	_,err=service.GetPostById(postId)
+	post,err:=service.GetPostById(postId)
 	if err!=nil{
 		tool.RespErrorWithDate(c,"无法找到要回复的id对应的留言捏")
+		return
+	}
+	if post.Txt==""{
+		tool.RespErrorWithDate(c,"你要回复的留言已删除")
 		return
 	}
 	err = service.AddComment(comment)

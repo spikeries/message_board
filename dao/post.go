@@ -15,6 +15,7 @@ func SelectPostById(postId int) (model.Post, error) {
 	row := dB.QueryRow("SELECT id, username, txt, posttime, updatetime FROM post WHERE id = ? ", postId)
 	if row.Err() != nil {
 		return post, row.Err()
+
 	}
 
 	err := row.Scan(&post.Id, &post.Username, &post.Txt, &post.PostTime, &post.UpdateTime)

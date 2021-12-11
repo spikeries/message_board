@@ -1,6 +1,7 @@
 package api
 
 import (
+	"database/sql"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"message_board/model"
@@ -43,7 +44,7 @@ func addPost(c *gin.Context) {
 		PostTime:   time.Now(),
 		UpdateTime: time.Now(),
 	}
-if txt != ""{
+if txt == ""{
 	tool.RespErrorWithDate(c,"留言内容不能为空")
 	return
 }
@@ -66,9 +67,12 @@ func showPost(c *gin.Context){
 	var postdetail model.PostDetail
 	post,err:=service.GetPostById(id)
 	if err!=nil{
+		if err == sql.ErrNoRows{
+
+		}else{
 		tool.RespInternalError(c)
 		fmt.Println(err)
-		return
+		return}
 	}
 	if post.Txt==""{
 		post.Txt="该留言已被删除。"

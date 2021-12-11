@@ -45,3 +45,18 @@ func addComment(c *gin.Context) {
 
 	tool.RespSuccessful(c)
 }
+func deleteCommentById(c *gin.Context){
+	idstr := c.PostForm("id")
+	id,err := strconv.Atoi(idstr)
+	if err != nil{
+		tool.RespErrorWithDate(c,"输入的id不合法")
+		return
+	}
+	err=service.DeleteComments(id)
+	if err != nil{
+		tool.RespInternalError(c)
+		fmt.Println(err)
+		return
+	}
+	tool.RespSuccessful(c)
+}

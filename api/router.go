@@ -17,6 +17,7 @@ c.POST("/passwordChanging",ChangePassword)
 		postGroup.GET("/postdetail",showPost)
 		postGroup.PUT("/",updatePostById)
 postGroup.DELETE("/",deletePostById)
+		postGroup.DELETE("/comments",deleteCommentById)
 	}
 
 

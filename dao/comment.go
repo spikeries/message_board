@@ -29,3 +29,8 @@ func SelectCommentByPostId(postId int) ([]model.Comment, error) {
 
 	return comments, nil
 }
+
+func DeleteCommentsById(id int)error{
+	_,err:=dB.Exec("DELETE from post where id = ?",id)
+	return err
+}
